@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int dp[501][501];
+    int solve(vector<int>&piles,int i,int j)
+    {
+        if(i>j)
+        {
+            return 0;
+        }
+        if(dp[i][j]!=-1)
+        {
+            return dp[i][j];
+        }
+        return dp[i][j] =max(min(solve(piles,i+1,j-1)+piles[j],solve(piles,i+2,j)+piles[i]),min(solve(piles,i+1,j-1)+piles[i],solve(piles,i,j-2)+piles[j]));
+    }
+    bool stoneGame(vector<int>& piles) {
+        int n = piles.size();
+        memset(dp,-1,sizeof(dp));
+        return solve(piles,0,n-1);
+    }
+};
